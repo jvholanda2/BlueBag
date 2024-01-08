@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blue BAG</title>
+</head>
+<body>
+    <h1>Upload de Arquivos</h1>
+    <form enctype="multipart/form-data" action="/upload" method="post">
+        <input type="file" name="arquivo">
+        <button type="submit">Upload</button>
+    </form>
+    
+
+    <h2>Arquivos Disponíveis para Download</h2>
+    <ul id="listaArquivos"></ul>
+
+    <script>
+        // Função para carregar a lista de arquivos disponíveis
+        async function carregarArquivos() {
+            const response = await fetch('/arquivos');
+            const arquivos = await response.json();
+            const listaArquivos = document.getElementById('listaArquivos');
+
+            listaArquivos.innerHTML = arquivos.map(arquivo => `<li><a href="/download/${arquivo}">${arquivo}</a></li>`).join('');
+        }
+
+        // Chama a função ao carregar a página
+        carregarArquivos();
+    </script>
+</body>
+</html>
